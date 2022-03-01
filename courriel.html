@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"> -->
+    <title>Courriel</title>
+</head>
+<body>
+    <div id="contacts">
+        <h1>Contacts</h1>
+        <h2>Ajouter/Modifier</h2>
+        <form id="frmContacts" name="frmContacts" onsubmit="saveContact()" method="post">
+            <label for="contactShortName">Nom court :</label>
+            <input id="contactShortName" name="contactShortName" type="text" value="" placeholder="puntel">
+            <label for="contactLongName">Nom long :</label>
+            <input id="contactLongName" name="contactLongName" type="text" value="" placeholder="Pierre Untel">
+            <input id="contactSubmit" name="contactSubmit" type="submit" value="Sauvegarder">
+        </form>
+        <h2>Liste de contacts</h2>
+    </div>
+    
+    <div id="message">
+        <h1>Messages</h1>
+        <h2>Composer</h2>
+        <form id="frmMsg" name="frmMsg">
+            <label for="msgContact">Destinataire :</label>
+            <select id="msgContact" name="msgContact">
+                <option value="0"></option>
+                <option value="1">Paul</option>
+                <option value="2">Todd</option>
+                <option value="3">John</option>
+            </select>
+            <label for="msgSubject">Sujet :</label>
+            <input id="msgSubject" name="msgSubject" type="text" value="">
+            <label for="msgText">Message :</label>
+            <textarea id="msgText" name="msgText" rows="5" cols="30"></textarea>
+        </form>
+    </div>
+</body>
+</html>
