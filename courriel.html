@@ -8,23 +8,36 @@
     <title>Courriel</title>
 </head>
 <body>
+    <script src="courriel.js"></script>
     <div id="contacts">
         <h1>Contacts</h1>
         <h2>Ajouter/Modifier</h2>
-        <form id="frmContacts" name="frmContacts" onsubmit="saveContact()" method="post">
+        <form id="frmContacts" name="frmContacts" onsubmit="return false">
             <label for="contactShortName">Nom court :</label>
             <input id="contactShortName" name="contactShortName" type="text" value="" placeholder="puntel">
             <label for="contactLongName">Nom long :</label>
             <input id="contactLongName" name="contactLongName" type="text" value="" placeholder="Pierre Untel">
-            <input id="contactSubmit" name="contactSubmit" type="submit" value="Sauvegarder">
+            <input id="contactSubmit" name="contactSubmit" type="submit" value="Sauvegarder" onclick="saveContact()">
         </form>
         <h2>Liste de contacts</h2>
+        <table id="tblContacts" name="tblContacts">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom court</th>
+                    <th>Nom long</th>
+                    <th>Modifié</th>
+                </tr>
+            </thead>
+            <tbody id="tblContactsBody" name="tblContactsBody">
+            </tbody>
+        </table>
     </div>
     
     <div id="message">
         <h1>Messages</h1>
         <h2>Composer</h2>
-        <form id="frmMsg" name="frmMsg">
+        <form id="frmMsg" name="frmMsg" onsubmit="return false">
             <label for="msgContact">Destinataire :</label>
             <select id="msgContact" name="msgContact">
                 <option value="0"></option>
