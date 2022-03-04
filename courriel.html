@@ -8,7 +8,6 @@
     <title>Courriel</title>
 </head>
 <body>
-    <script src="courriel.js"></script>
     <div id="contacts">
         <h1>Contacts</h1>
         <h2>Ajouter/Modifier</h2>
@@ -27,9 +26,19 @@
                     <th>Nom court</th>
                     <th>Nom long</th>
                     <th>Modifié</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
                 </tr>
             </thead>
             <tbody id="tblContactsBody" name="tblContactsBody">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Aucun contact</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -40,10 +49,7 @@
         <form id="frmMsg" name="frmMsg" onsubmit="return false">
             <label for="msgContact">Destinataire :</label>
             <select id="msgContact" name="msgContact">
-                <option value="0"></option>
-                <option value="1">Paul</option>
-                <option value="2">Todd</option>
-                <option value="3">John</option>
+                <option value="0">Choisir contact</option>
             </select>
             <label for="msgSubject">Sujet :</label>
             <input id="msgSubject" name="msgSubject" type="text" value="">
@@ -51,5 +57,6 @@
             <textarea id="msgText" name="msgText" rows="5" cols="30"></textarea>
         </form>
     </div>
+    <script src="courriel.js"></script>
 </body>
 </html>
