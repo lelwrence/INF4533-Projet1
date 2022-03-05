@@ -100,7 +100,7 @@ function addContactTableRow(newContact) {
         btnEdit.id = "editContact" + newContact.ID;
         //btnEdit.onclick = function() {editContact(newContact.ID);}
         btnEdit.addEventListener("click", function() {
-            alert("button clicked");
+            console.log("Editing contact " + newContact.ID);
             editContact(newContact.ID);
         })
         cellModify.appendChild(btnEdit);
@@ -110,7 +110,11 @@ function addContactTableRow(newContact) {
         //btnDelete.className = "btn";
         btnDelete.value = "Supprimer";
         btnDelete.id = "deleteContact" + newContact.ID;
-        btnDelete.onclick = function() {deleteContact(newContact.ID);}
+        //btnDelete.onclick = function() {deleteContact(newContact.ID);}
+        btnDelete.addEventListener("click", function() {
+            console.log("Deleting contact " + newContact.ID);
+            deleteContact(newContact.ID);
+        })
         cellModify.appendChild(btnDelete);
     }
 }
@@ -148,6 +152,8 @@ function editContact(contactIDToEdit) {
             break;
         }
     }
+
+    refreshContacts();
 }
 
 function deleteContact(contactIDToDelete) {
@@ -156,10 +162,12 @@ function deleteContact(contactIDToDelete) {
     for (var i = 0; i < arrayContacts; i++) {
         if (contactIDToDelete == arrayContacts[i].ID) {
             contactToDelete = i;
+            arrayContacts.splice(contactToDelete);
             break;
         }
     }
-    arrayContacts.splice(contactToDelete);
+
+    refreshContacts();
 }
 
 function refreshMsgContacts() {
