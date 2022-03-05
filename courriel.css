@@ -1,3 +1,11 @@
 .testclass {
     color: black;
 }
+
+.p {
+    font-family: monospace;
+}
+
+.hidden {
+    display: none;
+}
