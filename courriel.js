@@ -37,21 +37,28 @@ refreshMsg();
 
 
 function saveContact() {
-    let frmShortName = document.getElementById("contactShortName").value; //document.forms["frmContacts"]["contactShortName"].value;
+    let frmID = document.getElementById("contactID").value;
+    let frmShortName = document.getElementById("contactShortName").value;
     let frmLongName = document.getElementById("contactLongName").value; //document.forms["frmContacts"]["contactLongName"].value;
 
     //alert(document.getElementById("contactShortName").value);
 
     //let frmNewContact = new Contact(frmShortName, frmLongName);
+    let newID;
+    if (frmID == "") {
+        newID = ++counterContacts;
+    } else {
+        newID = frmID;
+    }
+
     let frmNewContact = {
-        "ID": ++counterContacts,
+        "ID": newID,
         "shortName": frmShortName,
         "longName": frmLongName,
         "lastUpdate": new Date()
     };
-    console.log(frmNewContact);
 
-    arrayContactsIndex = isExistingContact(frmNewContact); //returns -1 if not exists, else returns index in arrayContacts
+    arrayContactsIndex = getArrayContactsIndexFromID(frmNewContact.ID);
 
     if (arrayContactsIndex == -1) {
         arrayContacts.push(frmNewContact);
@@ -59,17 +66,29 @@ function saveContact() {
         arrayContacts[arrayContactsIndex] = frmNewContact;
     }
 
+    fillContactForm("", "", "");
+
     refreshContacts();
     refreshMsgContacts();
 }
 
-function isExistingContact(newContact) {
+function getArrayContactsIndexFromID(newContactID) {
     for (var i = 0; i < arrayContacts.length; i++) {
-        if (arrayContacts[i].ID === newContact.ID) {
+        if (arrayContacts[i].ID == newContactID) {
             return i;
         }
     }
     return -1;
+}
+
+function fillContactForm(ID, shortName, longName) {
+    let frmContactID = document.forms["frmContacts"]["contactID"]; //document.getElementById(contactID);
+    let frmContactShortName = document.forms["frmContacts"]["contactShortName"]; //document.getElementById(contactShortName);
+    let frmContactLongName = document.forms["frmContacts"]["contactLongName"]; //document.getElementById(contactLongName);
+
+    frmContactID.value = ID;
+    frmContactShortName.value = shortName;
+    frmContactLongName.value = longName;
 }
 
 function addContactTableRow(newContact) {
@@ -100,7 +119,6 @@ function addContactTableRow(newContact) {
         btnEdit.id = "editContact" + newContact.ID;
         //btnEdit.onclick = function() {editContact(newContact.ID);}
         btnEdit.addEventListener("click", function() {
-            console.log("Editing contact " + newContact.ID);
             editContact(newContact.ID);
         })
         cellModify.appendChild(btnEdit);
@@ -112,7 +130,6 @@ function addContactTableRow(newContact) {
         btnDelete.id = "deleteContact" + newContact.ID;
         //btnDelete.onclick = function() {deleteContact(newContact.ID);}
         btnDelete.addEventListener("click", function() {
-            console.log("Deleting contact " + newContact.ID);
             deleteContact(newContact.ID);
         })
         cellModify.appendChild(btnDelete);
@@ -137,18 +154,15 @@ function refreshContacts() {
 }
 
 function editContact(contactIDToEdit) {
-    console.log(contactIDToEdit);
     let contactToEdit;
     let frmContactID = document.getElementById(contactID);
     let frmContactShortName = document.getElementById(contactShortName);
     let frmContactLongName = document.getElementById(contactLongName);
 
-    for (var i = 0; i < arrayContacts; i++) {
+    for (var i = 0; i < arrayContacts.length; i++) {
         if (contactIDToEdit == arrayContacts[i].ID) {
             contactToEdit = arrayContacts[i];
-            frmContactID.value = contactToEdit.ID;
-            frmContactShortName.value = contactToEdit.shortName;
-            frmContactLongName.value = contactToEdit.longName;
+            fillContactForm(contactToEdit.ID, contactToEdit.shortName, contactToEdit.longName);
             break;
         }
     }
@@ -157,17 +171,26 @@ function editContact(contactIDToEdit) {
 }
 
 function deleteContact(contactIDToDelete) {
-    console.log(contactIDToDelete);
-    let contactToDelete;
-    for (var i = 0; i < arrayContacts; i++) {
-        if (contactIDToDelete == arrayContacts[i].ID) {
-            contactToDelete = i;
-            arrayContacts.splice(contactToDelete);
-            break;
+    let countMsg = 0;
+    for (var i = 0; i < arrayMsg.length; i++) {
+        if (arrayMsg[i].contactID == contactIDToDelete) {
+            countMsg++;
         }
     }
 
-    refreshContacts();
+    if (countMsg !== 0) {
+        alert("Impossible de supprimer. Contact #" + contactIDToDelete + " est utilisé.");
+    } else {
+        let contactToDelete;
+        for (var i = 0; i < arrayContacts.length; i++) {
+            if (contactIDToDelete == arrayContacts[i].ID) {
+                contactToDelete = i;
+                arrayContacts.splice(contactToDelete);
+                break;
+            }
+        }
+        refreshContacts();
+    }    
 }
 
 function refreshMsgContacts() {
