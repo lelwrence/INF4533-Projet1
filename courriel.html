@@ -8,73 +8,102 @@
     <title>Courriel</title>
 </head>
 <body>
-    <div id="contacts">
-        <h1>Contacts</h1>
-        <h2>Ajouter/Modifier</h2>
-        <form id="frmContacts" name="frmContacts" onsubmit="return false">
-            <input type="number" id="contactID" class="hidden" value="">
-            <label for="contactShortName">Nom court :</label>
-            <input id="contactShortName" name="contactShortName" type="text" value="" placeholder="Pierre">
-            <label for="contactLongName">Nom long :</label>
-            <input id="contactLongName" name="contactLongName" type="text" value="" placeholder="Pierre Untel">
-            <input id="contactSubmit" name="contactSubmit" type="submit" value="Sauvegarder" onclick="saveContact()">
-        </form>
-        <h2>Liste de contacts</h2>
-        <table id="tblContacts" name="tblContacts">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nom court</th>
-                    <th>Nom long</th>
-                    <th>Modifié</th>
-                    <th>Options</th>
-                </tr>
-            </thead>
-            <tbody id="tblContactsBody" name="tblContactsBody">
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>Aucun contact</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
-    <div id="message">
-        <h1>Messages</h1>
-        <h2>Composer</h2>
-        <form id="frmMsg" name="frmMsg" onsubmit="return false">
-            <label for="msgContact">Destinataire :</label>
-            <select id="msgContact" name="msgContact">
-                <option value="0">Choisir contact</option>
-            </select>
-            <label for="msgSubject">Sujet :</label>
-            <input id="msgSubject" name="msgSubject" type="text" value="">
-            <label for="msgText">Message :</label>
-            <textarea id="msgText" name="msgText" rows="5" cols="30"></textarea>
-            <input id="msgSend" name="msgSend" type="submit" value="Envoyer" onclick="sendMsg()">
-        </form>
-        <h2>Liste de messages</h2>
-        <table id="tblMsg" name="tblMsg">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Destinataire</th>
-                    <th>Message</th>
-                    <th>Envoyé</th>
-                </tr>
-            </thead>
-            <tbody id="tblMsgBody" name="tblMsgBody">
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>Aucun message</td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="centre-text">
+        <h1>Messagerie</h1>
+        <div class="centre-screen">
+            <div id="navbar">
+                <ul>
+                    <li><a href="#intro" onclick="viewSection('intro'); return false;">Accueil</a></li> 
+                    <li><a href="#contacts" onclick="viewSection('contacts'); return false;">Carnet d'adresses</a></li> 
+                    <li><a href="#message" onclick="viewSection('message'); return false;">Messages</a></li> 
+                </ul>
+            </div>
+
+            <div id="intro" class="nav-section">
+                <p>
+                    Présenté par Lawrence Kater<br>INF4533<br>2022-03-05
+                </p>
+            </div>
+
+            <div id="contacts" class="nav-section">
+                <h2>Carnet d'adresses</h2>
+                <h3>Ajouter/Modifier</h3>
+                <form id="frmContacts" name="frmContacts" onsubmit="return false">
+                    <input type="number" id="contactID" class="hidden" value="">
+                    <label for="contactShortName">Nom court :</label>
+                    <br>
+                    <input id="contactShortName" name="contactShortName" type="text" value="" placeholder="p. ex. Pierre" class="form-fields">
+                    <br>
+                    <label for="contactLongName">Nom long :</label>
+                    <br>
+                    <input id="contactLongName" name="contactLongName" type="text" value="" placeholder="p. ex. Pierre Untel" class="form-fields">
+                    <br>
+                    <input id="contactSubmit" name="contactSubmit" type="submit" value="Sauvegarder" onclick="saveContact()">
+                </form>
+                <h3>Liste de contacts</h3>
+                <table id="tblContacts" name="tblContacts">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nom court</th>
+                            <th>Nom long</th>
+                            <th>Modifié</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblContactsBody" name="tblContactsBody">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Aucun contact</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="message" class="nav-section">
+                <h2>Messages</h2>
+                <h3>Composer</h3>
+                <form id="frmMsg" name="frmMsg" onsubmit="return false">
+                    <label for="msgContact">Destinataire :</label>
+                    <br>
+                    <select id="msgContact" name="msgContact" class="form-fields">
+                        <option value="0">Choisir contact</option>
+                    </select>
+                    <br>
+                    <label for="msgSubject">Sujet :</label>
+                    <br>
+                    <input id="msgSubject" name="msgSubject" type="text" value="" class="form-fields">
+                    <br>
+                    <label for="msgText">Message :</label>
+                    <br>
+                    <textarea id="msgText" name="msgText" rows="5" cols="30" class="form-fields"></textarea>
+                    <br>
+                    <input id="msgSend" name="msgSend" type="submit" value="Envoyer" onclick="sendMsg()">
+                </form>
+                <h3>Liste de messages</h3>
+                <table id="tblMsg" name="tblMsg">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Destinataire</th>
+                            <th>Message</th>
+                            <th>Envoyé</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblMsgBody" name="tblMsgBody">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Aucun message</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <script src="courriel.js"></script>
 </body>

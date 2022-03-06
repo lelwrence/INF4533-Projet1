@@ -35,6 +35,8 @@ refreshContacts();
 refreshMsgContacts();
 refreshMsg();
 
+viewSection('intro');
+
 
 function saveContact() {
     let frmID = document.getElementById("contactID").value;
@@ -82,9 +84,9 @@ function getArrayContactsIndexFromID(newContactID) {
 }
 
 function fillContactForm(ID, shortName, longName) {
-    let frmContactID = document.forms["frmContacts"]["contactID"]; //document.getElementById(contactID);
-    let frmContactShortName = document.forms["frmContacts"]["contactShortName"]; //document.getElementById(contactShortName);
-    let frmContactLongName = document.forms["frmContacts"]["contactLongName"]; //document.getElementById(contactLongName);
+    let frmContactID = document.getElementById("contactID");
+    let frmContactShortName = document.getElementById("contactShortName");
+    let frmContactLongName = document.getElementById("contactLongName"); //document.forms["frmContacts"]["contactLongName"]; 
 
     frmContactID.value = ID;
     frmContactShortName.value = shortName;
@@ -117,6 +119,7 @@ function addContactTableRow(newContact) {
         //btnEdit.className = "btn";
         btnEdit.value = "Modifier";
         btnEdit.id = "editContact" + newContact.ID;
+        btnEdit.classList.add("button-margin");
         //btnEdit.onclick = function() {editContact(newContact.ID);}
         btnEdit.addEventListener("click", function() {
             editContact(newContact.ID);
@@ -128,6 +131,7 @@ function addContactTableRow(newContact) {
         //btnDelete.className = "btn";
         btnDelete.value = "Supprimer";
         btnDelete.id = "deleteContact" + newContact.ID;
+        btnDelete.classList.add("button-margin");
         //btnDelete.onclick = function() {deleteContact(newContact.ID);}
         btnDelete.addEventListener("click", function() {
             deleteContact(newContact.ID);
@@ -222,22 +226,10 @@ function sendMsg() {
 
     if (frmMsgContact.value == "blankrow") {
         alert("Erreur! Choisissez un contact.");
-    } else {
-        /*
-        let msgContact;
-        for (var i = 0; i < arrayContacts.length; i++) {
-            if (arrayContacts[i].ID === frmMsgContact.value) {
-                msgContact = arrayContacts[i];
-                break;
-            }
-        }
-        */
-    
+    } else {  
         let frmNewMsg = {
             "ID": ++counterMsg,
             "contactID": frmMsgContact.value,
-            //"contactShortName": msgContact.shortName,
-            //"contactLongName": msgContact.longName,
             "subject": frmMsgSubject.value,
             "message": frmMsgText.value,
             "lastUpdate": new Date()
@@ -291,5 +283,18 @@ function addMsgTableRow(newMsg) {
         var offset = newMsg.lastUpdate.getTimezoneOffset();
         var lastUpdate = new Date(newMsg.lastUpdate.getTime() - (offset * 60 * 1000));
         cellLastUpdate.innerHTML = lastUpdate.toISOString().replace("T"," ").substring(0,16).replace(":", " h ");
+    }
+}
+
+function viewSection(sectionID) {
+    let sections = document.getElementsByClassName("nav-section");
+
+    for (var i = 0; i < sections.length; i++) {
+        if (sections[i].id == sectionID && sections[i].classList.contains("hidden")) {
+            sections[i].classList.remove("hidden");
+        }
+        if (sections[i].id !== sectionID && !sections[i].classList.contains("hidden")) {
+            sections[i].classList.add("hidden");
+        }
     }
 }
