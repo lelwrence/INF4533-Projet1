@@ -61,6 +61,11 @@
                         </tr>
                     </tbody>
                 </table>
+                <br>
+                <h4>Recherche</h4>
+                <label for="contactFilterTxt">Filtre :</label>
+                <input id="contactFilterTxt" name="contactFilterTxt" type="text" value="" class="form-fields">
+                <input id="contactFilterRun" name="contactFilterRun" type="submit" value="Filtrer" onclick="refreshContacts(document.getElementById('contactFilterTxt').value)">
             </div>
             
             <div id="message" class="nav-section">
@@ -89,6 +94,7 @@
                         <tr>
                             <th>No</th>
                             <th>Destinataire</th>
+                            <th>Sujet</th>
                             <th>Message</th>
                             <th>Envoyé</th>
                         </tr>
@@ -99,9 +105,14 @@
                             <td></td>
                             <td>Aucun message</td>
                             <td></td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>
+                <h4>Recherche</h4>
+                <label for="msgFilterTxt">Filtre :</label>
+                <input id="msgFilterTxt" name="msgFilterTxt" type="text" value="" class="form-fields">
+                <input id="msgFilterRun" name="msgFilterRun" type="submit" value="Filtrer" onclick="refreshMsg(document.getElementById('msgFilterTxt').value)">
             </div>
         </div>
     </div>

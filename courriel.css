@@ -28,6 +28,10 @@ th {
     color: #fff;
 }
 
+.tdbreak {
+    word-wrap: break-word;
+}
+
 .button-margin {
     margin-left: 2px;
     margin-right: 2px;

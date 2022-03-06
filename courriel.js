@@ -43,32 +43,33 @@ function saveContact() {
     let frmShortName = document.getElementById("contactShortName").value;
     let frmLongName = document.getElementById("contactLongName").value; //document.forms["frmContacts"]["contactLongName"].value;
 
-    //alert(document.getElementById("contactShortName").value);
-
-    //let frmNewContact = new Contact(frmShortName, frmLongName);
-    let newID;
-    if (frmID == "") {
-        newID = ++counterContacts;
+    if (frmShortName == "" || frmLongName == "") {
+        alert("Erreur! Saisissez les données.");
     } else {
-        newID = frmID;
+        let newID;
+        if (frmID == "") {
+            newID = ++counterContacts;
+        } else {
+            newID = frmID;
+        }
+    
+        let frmNewContact = {
+            "ID": newID,
+            "shortName": frmShortName,
+            "longName": frmLongName,
+            "lastUpdate": new Date()
+        };
+    
+        arrayContactsIndex = getArrayContactsIndexFromID(frmNewContact.ID);
+    
+        if (arrayContactsIndex == -1) {
+            arrayContacts.push(frmNewContact);
+        } else {
+            arrayContacts[arrayContactsIndex] = frmNewContact;
+        }
+    
+        fillContactForm("", "", "");
     }
-
-    let frmNewContact = {
-        "ID": newID,
-        "shortName": frmShortName,
-        "longName": frmLongName,
-        "lastUpdate": new Date()
-    };
-
-    arrayContactsIndex = getArrayContactsIndexFromID(frmNewContact.ID);
-
-    if (arrayContactsIndex == -1) {
-        arrayContacts.push(frmNewContact);
-    } else {
-        arrayContacts[arrayContactsIndex] = frmNewContact;
-    }
-
-    fillContactForm("", "", "");
 
     refreshContacts();
     refreshMsgContacts();
@@ -140,7 +141,7 @@ function addContactTableRow(newContact) {
     }
 }
 
-function refreshContacts() {
+function refreshContacts(searchCond) {
     var contactsTable = document.getElementById("tblContactsBody");
     contactsTable.innerHTML = "";
 
@@ -149,7 +150,9 @@ function refreshContacts() {
     } else {
         for (var i = 0; i < arrayContacts.length; i++) {
             arrayContacts[i].lastUpdate = new Date(arrayContacts[i].lastUpdate);
-            addContactTableRow(arrayContacts[i]);
+            if (searchCond == undefined || JSON.stringify(arrayContacts[i]).includes(searchCond)) {
+                addContactTableRow(arrayContacts[i]);
+            }
         }
     }
 
@@ -220,18 +223,20 @@ function refreshMsgContacts() {
 }
 
 function sendMsg() {
-    let frmMsgContact = document.getElementById("msgContact");
-    let frmMsgSubject = document.getElementById("msgSubject");
-    let frmMsgText = document.getElementById("msgText");
+    let frmMsgContact = document.getElementById("msgContact").value;
+    let frmMsgSubject = document.getElementById("msgSubject").value;
+    let frmMsgText = document.getElementById("msgText").value;
 
-    if (frmMsgContact.value == "blankrow") {
+    if (frmMsgContact == "blankrow") {
         alert("Erreur! Choisissez un contact.");
-    } else {  
+    } else if (frmMsgSubject == "" || frmMsgText == "") { 
+        alert("Erreur! Saisissez les données.");
+    } else {
         let frmNewMsg = {
             "ID": ++counterMsg,
-            "contactID": frmMsgContact.value,
-            "subject": frmMsgSubject.value,
-            "message": frmMsgText.value,
+            "contactID": frmMsgContact,
+            "subject": frmMsgSubject, 
+            "message": frmMsgText,
             "lastUpdate": new Date()
         };
         arrayMsg.push(frmNewMsg);
@@ -239,7 +244,7 @@ function sendMsg() {
     }
 }
 
-function refreshMsg() {
+function refreshMsg(searchCond) {
     let msgTable = document.getElementById("tblMsgBody");
     msgTable.innerHTML = "";
 
@@ -248,7 +253,11 @@ function refreshMsg() {
     } else {
         for (var i = 0; i < arrayMsg.length; i++) {
             arrayMsg[i].lastUpdate = new Date(arrayMsg[i].lastUpdate);
-            addMsgTableRow(arrayMsg[i]);
+            let msgContact = getArrayContactsIndexFromID(arrayMsg[i].contactID);
+            let searchMsgAndContact = JSON.stringify(arrayMsg[i]) + JSON.stringify(arrayContacts[msgContact]);
+            if (searchCond == undefined || searchMsgAndContact.includes(searchCond)) {
+                addMsgTableRow(arrayMsg[i]);
+            }
         }
     }
 
@@ -261,11 +270,14 @@ function addMsgTableRow(newMsg) {
     var newRow = tbodyRef.insertRow();
     var cellID = newRow.insertCell(0);
     var cellRecipient = newRow.insertCell(1);
-    var cellMessage = newRow.insertCell(2);
-    var cellLastUpdate = newRow.insertCell(3);
+    var cellSubject = newRow.insertCell(2);
+    var cellMessage = newRow.insertCell(3);
+    var cellLastUpdate = newRow.insertCell(4);
+
+    cellSubject.classList.add("tdbreak");
 
     if (newMsg == undefined) {
-        cellMessage.innerHTML = "Aucun message";
+        cellSubject.innerHTML = "Aucun message";
     } else {
         let msgContact;
         for (var i = 0; i < arrayContacts.length; i++) {
@@ -277,6 +289,7 @@ function addMsgTableRow(newMsg) {
 
         cellID.innerHTML = newMsg.ID;
         cellRecipient.innerHTML = msgContact.longName;
+        cellSubject.innerHTML = newMsg.subject;
         cellMessage.innerHTML = newMsg.message.replace(/\n/g,"<br>");
     
         //let lastUpdate = Date.parse(lastUpdate);
