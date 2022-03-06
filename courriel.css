@@ -48,27 +48,26 @@ th {
 }
 
 #navbar ul { 
-	margin: 0; 
-	padding: 5px; 
-	list-style-type: none; 
-	text-align: center; 
-	background-color: #0476aa;
-    
+    margin: 0; 
+    padding: 5px; 
+    list-style-type: none; 
+    text-align: center; 
+    background-color: #0476aa;
 } 
 
 #navbar ul li {  
-	display: inline; 
+    display: inline; 
 } 
 
 #navbar ul li a { 
-	text-decoration: none;
-	padding: .2em 1em; 
-	color: #fff; 
-	background-color: #0476aa; 
+    text-decoration: none;
+    padding: .2em 1em; 
+    color: #fff; 
+    background-color: #0476aa; 
 } 
 
 
 #navbar ul li a:hover { 
-	color: #000; 
-	background-color: #fff; 
+    color: #000; 
+    background-color: #fff; 
 }
