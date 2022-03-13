@@ -1,3 +1,5 @@
+//katl01@uqo.ca
+
 let arrayContacts = [];
 let arrayMsg = [];
 let counterContacts;

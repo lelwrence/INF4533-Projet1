@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="courriel.css">
     <title>Courriel</title>
+    <!-- katl01@uqo.ca -->
 </head>
 <body>
     <div class="centre-text">
@@ -21,7 +22,7 @@
 
             <div id="intro" class="nav-section">
                 <p>
-                    Présenté par Lawrence Kater<br>INF4533<br>2022-03-05
+                    Présenté par Lawrence Kater<br>katl01@uqo.ca<br>INF4533<br>2022-03-05
                 </p>
             </div>
 
@@ -30,11 +31,11 @@
                 <h3>Ajouter/Modifier</h3>
                 <form id="frmContacts" name="frmContacts" onsubmit="return false">
                     <input type="number" id="contactID" class="hidden" value="">
-                    <label for="contactShortName">Nom court :</label>
+                    <label for="contactShortName">Clé :</label>
                     <br>
-                    <input id="contactShortName" name="contactShortName" type="text" value="" placeholder="p. ex. Pierre" class="form-fields">
+                    <input id="contactShortName" name="contactShortName" type="text" value="" placeholder="" class="form-fields">
                     <br>
-                    <label for="contactLongName">Nom long :</label>
+                    <label for="contactLongName">Nom :</label>
                     <br>
                     <input id="contactLongName" name="contactLongName" type="text" value="" placeholder="p. ex. Pierre Untel" class="form-fields">
                     <br>
@@ -45,8 +46,8 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nom court</th>
-                            <th>Nom long</th>
+                            <th>Clé</th>
+                            <th>Nom</th>
                             <th>Modifié</th>
                             <th>Options</th>
                         </tr>
